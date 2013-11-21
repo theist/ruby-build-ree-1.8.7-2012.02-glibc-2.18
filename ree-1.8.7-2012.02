@@ -1,0 +1,8 @@
+DIR=$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+build_package_gperftools_patch() {
+  patch -p1 < $DIR/gperftools.patch
+}
+
+require_gcc
+install_package "ruby-enterprise-1.8.7-2012.02" "http://rubyenterpriseedition.googlecode.com/files/ruby-enterprise-1.8.7-2012.02.tar.gz#8d086d2fe68a4c57ba76228e97fb3116" gperftools_patch ree_installer

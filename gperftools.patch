@@ -1,0 +1,31 @@
+--- a/source/distro/google-perftools-1.7/src/tcmalloc.cc	2013-11-21 15:32:22.408760179 -0500
++++ b/source/distro/google-perftools-1.7/src/tcmalloc.cc	2013-11-21 15:23:43.908972961 -0500
+@@ -1669,5 +1669,5 @@
+   MallocHook::InvokeNewHook(result, size);
+   return result;
+ }
+-void *(*__memalign_hook)(size_t, size_t, const void *) = MemalignOverride;
++void *(*__MALLOC_HOOK_VOLATILE __memalign_hook)(size_t, size_t, const void *) = MemalignOverride;
+ #endif  // #ifndef TCMALLOC_FOR_DEBUGALLOCATION
+--- a/source/distro/google-perftools-1.7/src/debugallocation.cc	2013-11-21 15:33:07.105408776 -0500
++++ b/source/distro/google-perftools-1.7/src/debugallocation.cc	2013-11-21 15:24:59.155608372 -0500
+@@ -1135,7 +1135,7 @@
+   MallocHook::InvokeNewHook(p, size);
+   return p;
+ }
+-void *(*__memalign_hook)(size_t, size_t, const void *) = MemalignOverride;
++void *(*__MALLOC_HOOK_VOLATILE __memalign_hook)(size_t, size_t, const void *) = MemalignOverride;
+ 
+ extern "C" void* memalign(size_t align, size_t size) __THROW {
+   void *p = do_debug_memalign(align, size);
+--- a/source/distro/google-perftools-1.7/src/base/linuxthreads.cc	2013-11-21 15:26:35.868901726 -0500
++++ b/source/distro/google-perftools-1.7/src/base/linuxthreads.cc	2013-11-21 15:27:57.538868131 -0500
+@@ -193,7 +193,7 @@
+ /* Signal handler to help us recover from dying while we are attached to
+  * other threads.
+  */
+-static void SignalHandler(int signum, siginfo_t *si, void *data) {
++static void SignalHandler(int signum, siginfo *si, void *data) {
+   if (sig_pids != NULL) {
+     if (signum == SIGABRT) {
+       while (sig_num_threads-- > 0) {
