@@ -7,7 +7,7 @@ Usually, ruby-build is run via rbenv, so the instructions below use `rbenv` for 
 ```shell
 git clone git://github.com/veracross/ruby-build-ree-1.8.7-2012.02-glibc-2.18.git
 cd ruby-build-ree-1.8.7-2012.02-glibc-2.18
-rbenv install ./ruby-build-ree-1.8.7-2012.02
+rbenv install ./ree-1.8.7-2012.02
 ```
 
 ## Why
